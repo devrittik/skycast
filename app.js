@@ -6,6 +6,7 @@ const searchBtn = document.getElementById("searchBtn");
 const cityInput = document.getElementById("cityInput");
 
 const locationDiv = document.getElementById("location");
+const resultDiv = document.getElementById("result");
 const wMain = document.getElementById("w_main");
 const temp = document.getElementById("temp");
 const tFeel = document.getElementById("t_feel");
