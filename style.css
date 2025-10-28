@@ -1,0 +1,35 @@
+body { font-family: sans-serif; text-align: center; background: #e3f2fd; }
+.weather-box { background: white; padding: 20px; border-radius: 10px; display: inline-block; margin-top: 100px; }
+input { padding: 8px; width: 200px; }
+button { padding: 8px 15px; margin-left: 10px; }
+
+table {
+  border-collapse: collapse; /* ensures single line between cells */
+  width: 100%;
+  background-color: #e6f2ff;
+}
+
+th, td {
+  border: 1px solid #ccc;  /* line between each cell */
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #b3d9ff;
+  font-weight: bold;
+}
+
+td {
+  background-color: #f2f9ff;
+  font-weight: normal;
+}
+
+.footer {
+  background: linear-gradient(135deg, #0d1b2a, #1b263b);
+}
+
+.footer a:hover {
+  color: #00aaff !important;
+  transition: 0.3s;
+}
