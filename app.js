@@ -103,7 +103,7 @@ async function callWeatherAPI(params) {
 
 // --- UPDATED: getWeather (for city) ---
 async function getWeather(city) {
-  return await callWeatherAPI({ q: city });
+  return await callWeatherAPI({ city });
 }
 
 // --- UPDATED: showWeatherByLocation ---
@@ -120,7 +120,7 @@ function showWeatherByLocation(position) {
 
 // --- UPDATED: fetchWeatherByCity ---
 function fetchWeatherByCity(city) {
-  callWeatherAPI({ q: city })
+  callWeatherAPI({ city })
     .then(data => showWeatherCard(data))
     .catch(() => {
       resultDiv.innerHTML = `<p style="color:red;">Error fetching weather!</p>`;
