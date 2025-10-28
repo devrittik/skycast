@@ -1,4 +1,4 @@
-const apiKey = "a40e4ef77a7374815312f3e1ece110ec";
+
 const cities = ["Shanghai", "Boston", "Lucknow", "Kolkata", "Mumbai", "Delhi"];
 const tableBody = document.getElementById("tableBody");
 
@@ -93,30 +93,33 @@ searchBtn.addEventListener("click", () => {
   fetchWeatherByCity(city);
 });
 
-// --- FUNCTIONS ---
-
-async function getWeather(city) {
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data;
+// --- PROXY HELPER ---
+async function callWeatherAPI(params) {
+  const query = new URLSearchParams(params).toString();
+  const res = await fetch(`/api/weather?${query}`);
+  return await res.json();
 }
 
+// --- UPDATED: getWeather (for city) ---
+async function getWeather(city) {
+  return await callWeatherAPI({ q: city });
+}
+
+// --- UPDATED: showWeatherByLocation ---
 function showWeatherByLocation(position) {
   const lat = position.coords.latitude;
   const lon = position.coords.longitude;
 
-  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
-    .then(res => res.json())
+  callWeatherAPI({ lat, lon })
     .then(data => showWeatherCard(data))
     .catch(() => {
       resultDiv.innerHTML = `<p style="color:red;">Error fetching location weather!</p>`;
     });
 }
 
+// --- UPDATED: fetchWeatherByCity ---
 function fetchWeatherByCity(city) {
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
-    .then(res => res.json())
+  callWeatherAPI({ q: city })
     .then(data => showWeatherCard(data))
     .catch(() => {
       resultDiv.innerHTML = `<p style="color:red;">Error fetching weather!</p>`;
@@ -173,43 +176,3 @@ function showError(error) {
 }
 
 document.getElementById("year").textContent = new Date().getFullYear();
-
-// Initialize EmailJS
-(function () {
-  emailjs.init("9JA_ZRCUrm7253vy6");
-})();
-
-const form = document.getElementById("contact-form");
-const statusMessage = document.getElementById("status-message");
-
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  statusMessage.textContent = "Sending...";
-
-  // reCAPTCHA token check
-  // const recaptchaResponse = grecaptcha.getResponse();
-  // if (!recaptchaResponse) {
-  //   statusMessage.textContent = "Please complete the reCAPTCHA.";
-  //   return;
-  // }
-
-  const templateParams = {
-    name: form.name.value,
-    email: form.email.value,
-    message: form.message.value,
-  };
-
-  try {
-    const result = await emailjs.send(
-      "service_o7kpcy9",
-      "template_igu1zfa",
-      templateParams
-    );
-    statusMessage.textContent = "Message sent successfully! We'll get back to you soon.";
-    form.reset();
-    // grecaptcha.reset();
-  } catch (error) {
-    console.error(error);
-    statusMessage.textContent = "Oops! Something went wrong. Try again later.";
-  }
-});
