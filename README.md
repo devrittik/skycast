@@ -8,7 +8,7 @@ It fetches live weather data using a public API and presents it through a modern
 🌤️ Features
 Real‑time weather updates for any city
 Responsive UI powered by Bootstrap
-Temperature, humidity, and wind info in both °C 
+Temperature, humidity, and wind info in °C 
 Clean code for easy learning & customization
 
 🧩 Tech Stack
